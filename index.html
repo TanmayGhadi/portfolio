@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanmay Ghadi — Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@200;300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+    <style>
+        :root {
+            --bg-primary: #070707;
+            --bg-secondary: #101010;
+            --bg-tertiary: #151515;
+            --gold: #C8A96B;
+            --gold-dim: rgba(200, 169, 107, 0.6);
+            --gold-glow: rgba(200, 169, 107, 0.15);
+            --cream: #F3E9DC;
+            --cream-dim: rgba(243, 233, 220, 0.7);
+            --muted: #9B9B9B;
+            --muted-dark: #6B6B6B;
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --cinematic-ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--cream);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.15s var(--cinematic-ease), width 0.3s var(--cinematic-ease), height 0.3s var(--cinematic-ease), background 0.3s;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor.hover {
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: 1px solid var(--gold);
+        }
+
+        /* Grain Overlay */
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* Vignette */
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9997;
+            background: radial-gradient(ellipse at center, transparent 0%, transparent 50%, rgba(0, 0, 0, 0.4) 100%);
+        }
+
+        /* Typography */
+        .font-serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .font-sans {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 24px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            transition: background 0.6s var(--cinematic-ease), backdrop-filter 0.6s;
+        }
+
+        nav.scrolled {
+            background: rgba(7, 7, 7, 0.8);
+            backdrop-filter: blur(20px);
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            color: var(--cream);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-logo::before {
+            content: '✦';
+            color: var(--gold);
+            font-size: 0.9rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.4s var(--cinematic-ease);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.4s var(--cinematic-ease);
+        }
+
+        .nav-link:hover {
+            color: var(--cream);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 10px 24px;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 100px;
+            transition: all 0.5s var(--cinematic-ease);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-cta::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: var(--gold);
+            transition: height 0.5s var(--cinematic-ease);
+            z-index: -1;
+        }
+
+        .nav-cta:hover {
+            color: var(--bg-primary);
+        }
+
+        .nav-cta:hover::before {
+            height: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0a0a0a 0%, #070707 50%, #0d0d0d 100%);
+        }
+
+        .hero-bg-text {
+            position: absolute;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(8rem, 20vw, 18rem);
+            font-weight: 300;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(200, 169, 107, 0.15);
+            letter-spacing: 0.05em;
+            line-height: 0.85;
+            z-index: 1;
+            user-select: none;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeUp 1.5s var(--cinematic-ease) forwards;
+        }
+
+        .hero-bg-text.filled {
+            color: var(--cream);
+            -webkit-text-stroke: none;
+            opacity: 0.08;
+            z-index: 2;
+        }
+
+        .hero-bg-text:nth-child(1) {
+            top: 8%;
+            left: 5%;
+            animation-delay: 0.2s;
+        }
+
+        .hero-bg-text:nth-child(2) {
+            top: 28%;
+            left: 15%;
+            animation-delay: 0.4s;
+        }
+
+        .hero-bg-text:nth-child(3) {
+            top: 48%;
+            left: 25%;
+            animation-delay: 0.6s;
+        }
+
+        .hero-bg-text:nth-child(4) {
+            top: 68%;
+            left: 10%;
+            animation-delay: 0.8s;
+        }
+
+        .hero-main-text {
+            position: absolute;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 300;
+            color: var(--cream);
+            letter-spacing: 0.08em;
+            z-index: 3;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            animation: fadeIn 2s var(--cinematic-ease) 0.5s forwards;
+            text-align: center;
+            width: 100%;
+            pointer-events: none;
+        }
+
+        @keyframes floatSlow {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .hero-portrait {
+            position: absolute;
+            left: 8%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: clamp(280px, 28vw, 420px);
+            height: clamp(360px, 40vw, 540px);
+            z-index: 4;
+            opacity: 0;
+            animation: fadeIn 1.8s var(--cinematic-ease) 0.8s forwards;
+            filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.6));
+        }
+
+        .hero-portrait-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-tertiary);
+            clip-path: polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px);
+            animation: floatSlow 6s ease-in-out infinite;
+        }
+
+        .hero-portrait-inner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(7, 7, 7, 0.8) 100%);
+            z-index: 2;
+        }
+
+        .hero-portrait-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(1.1) saturate(0.8) brightness(0.9);
+            transform: scale(1.05);
+            transition: transform 8s var(--cinematic-ease);
+        }
+
+        .hero-portrait:hover .hero-portrait-inner img {
+            transform: scale(1.15);
+        }
+
+        .hero-portrait-tagline {
+            position: absolute;
+            bottom: -60px;
+            left: 0;
+            max-width: 280px;
+            font-size: 0.8rem;
+            line-height: 1.7;
+            color: var(--muted);
+            font-weight: 300;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-social {
+            position: absolute;
+            right: 3%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            opacity: 0;
+            animation: fadeIn 1.5s var(--cinematic-ease) 1.2s forwards;
+        }
+
+        .hero-social-item {
+            font-size: 0.8rem;
+            color: #B2A4D4;
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            transition: color 0.4s, transform 0.4s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-social-item:hover {
+            color: var(--gold);
+            transform: scale(1.1) translateY(-2px);
+        }
+
+        .hero-social-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--muted-dark);
+            margin-bottom: 8px;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            animation: fadeIn 1.5s var(--cinematic-ease) 1.8s forwards;
+        }
+
+        .scroll-indicator-circle {
+            width: 80px;
+            height: 80px;
+            border: 1px solid var(--gold-dim);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            animation: pulse 3s ease-in-out infinite;
+            cursor: pointer;
+            transition: all 0.5s var(--cinematic-ease);
+        }
+
+        .scroll-indicator-circle:hover {
+            background: var(--gold-glow);
+            border-color: var(--gold);
+        }
+
+        /* Floating Stars */
+        .star {
+            position: absolute;
+            color: var(--gold);
+            font-size: 1rem;
+            z-index: 7;
+            animation: twinkle 4s ease-in-out infinite;
+        }
+
+        .star:nth-child(1) {
+            top: 15%;
+            left: 12%;
+            animation-delay: 0s;
+        }
+
+        .star:nth-child(2) {
+            top: 25%;
+            left: 45%;
+            animation-delay: 1s;
+            font-size: 0.7rem;
+        }
+
+        .star:nth-child(3) {
+            top: 65%;
+            left: 55%;
+            animation-delay: 2s;
+            font-size: 1.2rem;
+        }
+
+        .star:nth-child(4) {
+            top: 80%;
+            left: 20%;
+            animation-delay: 1.5s;
+            font-size: 0.8rem;
+        }
+
+        .star:nth-child(5) {
+            top: 40%;
+            right: 15%;
+            animation-delay: 0.5s;
+            font-size: 0.9rem;
+        }
+
+        /* Section Base */
+        section {
+            position: relative;
+            padding: 120px 48px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* About Section */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+            min-height: 100vh;
+            padding-top: 160px;
+        }
+
+        .about-left {
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-heading {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 32px;
+            color: var(--cream);
+        }
+
+        .about-heading .accent {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .about-text {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--muted);
+            max-width: 480px;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .about-linkedin {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 28px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            transition: all 0.5s var(--cinematic-ease);
+            backdrop-filter: blur(10px);
+        }
+
+        .about-linkedin:hover {
+            border-color: var(--gold-dim);
+            background: rgba(200, 169, 107, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .about-right {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .about-image-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .about-image-frame {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 3/4;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .about-image-frame::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid var(--glass-border);
+            border-radius: 4px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .about-image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(1.05) saturate(0.85) brightness(0.95);
+        }
+
+        .about-pill {
+            position: absolute;
+            padding: 8px 20px;
+            background: rgba(16, 16, 16, 0.9);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--cream);
+            backdrop-filter: blur(10px);
+            z-index: 10;
+            transition: all 0.4s var(--cinematic-ease);
+        }
+
+        .about-pill:hover {
+            border-color: var(--gold-dim);
+            transform: scale(1.05);
+        }
+
+        .about-pill.birth {
+            top: 20%;
+            left: -20px;
+            border-color: var(--gold-dim);
+            color: var(--gold);
+        }
+
+        .about-pill.nationality {
+            bottom: 25%;
+            right: -30px;
+        }
+
+        .about-contact-card {
+            margin-top: 40px;
+            padding: 32px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            backdrop-filter: blur(20px);
+            width: 100%;
+            max-width: 360px;
+            transition: all 0.5s var(--cinematic-ease);
+        }
+
+        .about-contact-card:hover {
+            border-color: var(--gold-dim);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 30px var(--gold-glow);
+        }
+
+        .about-contact-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            color: var(--cream);
+        }
+
+        .about-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .about-contact-item svg {
+            width: 16px;
+            height: 16px;
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+
+        .connect-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.4s var(--cinematic-ease);
+            cursor: pointer;
+        }
+
+        .connect-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Connect Modal */
+        .connect-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s var(--cinematic-ease);
+        }
+
+        .connect-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .connect-modal {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--gold-dim);
+            padding: 40px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 360px;
+            transform: translateY(40px) scale(0.95);
+            transition: all 0.4s var(--cinematic-ease);
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 40px var(--gold-glow);
+        }
+
+        .connect-modal-overlay.active .connect-modal {
+            transform: translateY(0) scale(1);
+        }
+
+        .connect-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .connect-modal-close:hover {
+            color: var(--gold);
+        }
+
+        /* Background Watermark */
+        .watermark {
+            position: absolute;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(6rem, 15vw, 12rem);
+            font-weight: 300;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(200, 169, 107, 0.08);
+            letter-spacing: 0.1em;
+            z-index: 0;
+            user-select: none;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        /* Resume Section */
+        .resume {
+            padding-top: 160px;
+            padding-bottom: 160px;
+        }
+
+        .resume-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .resume-column h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--gold);
+            margin-bottom: 40px;
+            letter-spacing: 0.05em;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 32px;
+            padding-bottom: 32px;
+            border-left: 1px solid var(--glass-border);
+            transition: all 0.4s var(--cinematic-ease);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3px;
+            top: 6px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 10px var(--gold-glow);
+            transition: all 0.4s var(--cinematic-ease);
+        }
+
+        .timeline-item:hover {
+            border-left-color: var(--gold-dim);
+        }
+
+        .timeline-item:hover::before {
+            transform: scale(1.5);
+            box-shadow: 0 0 20px var(--gold);
+        }
+
+        .timeline-year {
+            font-size: 0.8rem;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .timeline-title {
+            font-size: 1rem;
+            color: var(--cream);
+            margin-bottom: 4px;
+            font-weight: 400;
+        }
+
+        .timeline-subtitle {
+            font-size: 0.8rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .skill-category {
+            margin-bottom: 40px;
+        }
+
+        .skill-category h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--cream);
+            margin-bottom: 20px;
+        }
+
+        .skill-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-pill {
+            padding: 8px 18px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+            transition: all 0.4s var(--cinematic-ease);
+            cursor: default;
+        }
+
+        .skill-pill:hover {
+            border-color: var(--gold-dim);
+            color: var(--cream);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px var(--gold-glow);
+        }
+
+        .skill-pill.gold {
+            border-color: var(--gold-dim);
+            color: var(--gold);
+        }
+
+        .skill-pill.gold:hover {
+            background: rgba(200, 169, 107, 0.1);
+        }
+
+        .software-icons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .software-icon {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--muted);
+            transition: all 0.4s var(--cinematic-ease);
+        }
+
+        .software-icon:hover {
+            border-color: var(--gold-dim);
+            color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px var(--gold-glow);
+        }
+
+        /* Tags */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 32px;
+        }
+
+        .tag {
+            padding: 6px 16px;
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            font-size: 0.7rem;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+            transition: all 0.4s var(--cinematic-ease);
+        }
+
+        .tag:hover {
+            border-color: var(--gold-dim);
+            color: var(--gold);
+        }
+
+        /* Bottom Section */
+        .bottom-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            padding-bottom: 120px;
+        }
+
+        .bottom-column h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--gold);
+            margin-bottom: 40px;
+            letter-spacing: 0.05em;
+        }
+
+        .activity-item {
+            padding-bottom: 24px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.4s var(--cinematic-ease);
+        }
+
+        .activity-item:hover {
+            border-bottom-color: var(--gold-dim);
+            padding-left: 8px;
+        }
+
+        .activity-year {
+            font-size: 0.8rem;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+            margin-bottom: 6px;
+        }
+
+        .activity-title {
+            font-size: 1rem;
+            color: var(--cream);
+            margin-bottom: 4px;
+        }
+
+        .activity-desc {
+            font-size: 0.8rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .language-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .language-item {
+            text-align: center;
+            padding: 20px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            transition: all 0.5s var(--cinematic-ease);
+        }
+
+        .language-item:hover {
+            border-color: var(--gold-dim);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px var(--gold-glow);
+        }
+
+        .language-name {
+            font-size: 1rem;
+            color: var(--cream);
+            margin-bottom: 4px;
+        }
+
+        .language-level {
+            font-size: 0.75rem;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+        }
+
+        .hobbies-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .hobby-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 20px 12px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            transition: all 0.5s var(--cinematic-ease);
+            text-align: center;
+        }
+
+        .hobby-item:hover {
+            border-color: var(--gold-dim);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px var(--gold-glow);
+        }
+
+        .hobby-icon {
+            width: 36px;
+            height: 36px;
+            color: var(--gold);
+            opacity: 0.8;
+        }
+
+        .hobby-label {
+            font-size: 0.7rem;
+            color: var(--muted);
+            line-height: 1.4;
+            letter-spacing: 0.02em;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s var(--cinematic-ease);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Divider */
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+            margin: 0 auto;
+            max-width: 1400px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+
+            .about,
+            .resume-grid,
+            .bottom-section {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .hero-portrait {
+                position: relative;
+                left: auto;
+                top: auto;
+                transform: none;
+                margin: 40px auto;
+                width: 260px;
+                height: 340px;
+            }
+
+            .hero-main-text {
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                margin-top: 60px;
+            }
+
+            .hero-bg-text {
+                display: none;
+            }
+
+            .hero {
+                flex-direction: column;
+                padding: 120px 24px 80px;
+                min-height: auto;
+            }
+
+            section {
+                padding: 80px 24px;
+            }
+
+            .hobbies-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .language-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            nav {
+                padding: 16px 24px;
+            }
+
+            .about-pill.birth {
+                left: 10px;
+            }
+
+            .about-pill.nationality {
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-main-text {
+                font-size: 3rem;
+            }
+
+            .about-heading {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hobbies-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Smooth scroll container */
+        html.lenis {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+
+        /* Selection */
+        ::selection {
+            background: rgba(200, 169, 107, 0.3);
+            color: var(--cream);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold-dim);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+
+    <!-- Grain & Vignette -->
+    <div class="grain"></div>
+    <div class="vignette"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-logo">Tanmay Ghadi</div>
+        <div class="nav-links">
+            <a href="#about" class="nav-link">About me</a>
+            <a href="#resume" class="nav-link">Resume</a>
+            <a href="#work" class="nav-link">Work</a>
+            <a href="#" class="nav-cta" onclick="openModal(event)">Connect Us</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <!-- Layered Background Typography -->
+        <div class="hero-bg-text">FOLIO</div>
+        <div class="hero-bg-text">FOLIO</div>
+        <div class="hero-bg-text filled">FOLIO</div>
+        <div class="hero-bg-text">FOLIO</div>
+
+        <!-- Floating Stars -->
+        <div class="star">✦</div>
+        <div class="star">✦</div>
+        <div class="star">✦</div>
+        <div class="star">✦</div>
+        <div class="star">✦</div>
+
+        <!-- Portrait -->
+        <div class="hero-portrait">
+            <div class="hero-portrait-inner">
+                <img src="ChatGPT%20Image%20May%2018,%202026,%2002_14_27%20AM.png" alt="Portrait">
+            </div>
+            <p class="hero-portrait-tagline">18-year-old student and vibe coder. Blending creativity with logic to craft
+                aesthetic digital experiences.</p>
+        </div>
+
+        <!-- Main Title -->
+        <h1 class="hero-main-text font-serif">PORTFOLIO</h1>
+
+        <!-- Social Links -->
+        <div class="hero-social">
+            <a href="https://instagram.com/xrn._tanmyy" target="_blank" class="hero-social-item" title="Instagram">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+                @xrn._tanmyy
+            </a>
+            <a href="https://github.com/TanmayGhadi" target="_blank" class="hero-social-item" title="GitHub">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                    </path>
+                </svg>
+                /TanmayGhadi
+            </a>
+            <a href="https://linkedin.com/in/tanmay-ghadi" target="_blank" class="hero-social-item" title="LinkedIn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                    <rect x="2" y="9" width="4" height="12"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+                /Tanmay Ghadi
+            </a>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">
+            <div class="scroll-indicator-circle">Scroll<br>down</div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="watermark" style="top: -40px; right: -100px;">RESUME</div>
+
+        <div class="about-left reveal">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+                <div style="width: 40px; height: 1px; background: var(--gold);"></div>
+                <span
+                    style="color: var(--gold); letter-spacing: 0.2em; font-size: 0.8rem; text-transform: uppercase;">Discover
+                    My Vibe</span>
+            </div>
+            <h2 class="about-heading" style="font-size: clamp(3rem, 6vw, 4.5rem);">
+                Hello,<br>
+                I'm <span class="accent">Tanmay !</span>
+            </h2>
+            <p class="about-text" style="font-size: 1.3rem; line-height: 1.8; color: var(--cream-dim);">
+                I am a passionate Vibe Coder and an 18-year-old student based in Maharashtra, India. I focus purely on
+                frontend development, specializing in building highly animated, cinematic, and interactive websites. I
+                love merging raw creativity with clean code to craft digital experiences that look and feel amazing.
+            </p>
+            <div style="display: flex; gap: 16px; margin-top: 40px; flex-wrap: wrap;">
+                <a href="https://linkedin.com/in/tanmay-ghadi" target="_blank" class="about-linkedin"
+                    style="background: rgba(200,169,107,0.1); border-color: var(--gold); color: var(--gold);">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="m21 21-4.35-4.35" />
+                    </svg>
+                    LinkedIn
+                </a>
+                <a href="https://github.com/TanmayGhadi" target="_blank" class="about-linkedin"
+                    style="background: rgba(255,255,255,0.03);">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                        </path>
+                    </svg>
+                    GitHub
+                </a>
+            </div>
+
+            <!-- Productive Status Panel -->
+            <div
+                style="margin-top: 60px; padding: 32px; background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 12px; backdrop-filter: blur(20px); width: 100%;">
+                <h3 class="about-contact-title" style="margin-bottom: 24px;">Status & Skills</h3>
+                <div style="display: flex; gap: 40px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <span
+                            style="font-size: 0.75rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em;">Currently
+                            Building</span>
+                        <p style="color: var(--cream); font-size: 0.95rem; margin-top: 4px;">Animated Frontend
+                            Interfaces</p>
+                    </div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <span
+                            style="font-size: 0.75rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em;">Core
+                            Focus</span>
+                        <div style="display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap;">
+                            <span
+                                style="padding: 4px 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; font-size: 0.8rem; color: var(--cream);">Frontend
+                                Dev</span>
+                            <span
+                                style="padding: 4px 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; font-size: 0.8rem; color: var(--cream);">UI
+                                Animations</span>
+                            <span
+                                style="padding: 4px 10px; background: rgba(200,169,107,0.1); border: 1px solid var(--gold); border-radius: 4px; font-size: 0.8rem; color: var(--gold);">JavaScript
+                                / CSS</span>
+                        </div>
+                    </div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <span
+                            style="font-size: 0.75rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em;">Availability</span>
+                        <p
+                            style="color: #4CAF50; font-size: 0.95rem; margin-top: 4px; display: flex; align-items: center; gap: 6px;">
+                            <span
+                                style="width: 8px; height: 8px; background: #4CAF50; border-radius: 50%; box-shadow: 0 0 8px #4CAF50;"></span>
+                            Open for Collabs
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-right reveal">
+            <div class="about-image-container">
+                <div class="about-image-frame">
+                    <img src="ChatGPT%20Image%20May%2018,%202026,%2001_40_38%20AM.png" alt="About Portrait">
+                </div>
+                <div class="about-pill birth">2nd August 1999</div>
+                <div class="about-pill nationality">Vietnamese</div>
+            </div>
+
+            <!-- Connect Us Card -->
+            <div class="about-contact-card" id="contact" style="margin-top: 40px;">
+                <h3 class="about-contact-title">Connect Us</h3>
+
+                <div class="connect-buttons"
+                    style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;">
+                    <a href="https://wa.me/918668649942?text=Hi%20Tanmay,%20I%20would%20love%20to%20connect%20with%20you!"
+                        target="_blank" class="connect-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path
+                                d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                            </path>
+                        </svg>
+                        WhatsApp
+                    </a>
+                    <a href="https://ig.me/m/xrn._tanmyy" target="_blank" class="connect-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                        Instagram
+                    </a>
+                    <a href="tel:+918668649942" class="connect-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path
+                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                            </path>
+                        </svg>
+                        Call Me
+                    </a>
+                </div>
+
+                <div class="about-contact-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                    tanmayghadi392@gmail.com
+                </div>
+                <div class="about-contact-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                    </svg>
+                    +91 8668649942
+                </div>
+                <div class="about-contact-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                        <circle cx="12" cy="10" r="3" />
+                    </svg>
+                    Maharashtra, India
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Projects Section -->
+    <section class="resume" id="projects" style="padding-top: 40px; padding-bottom: 20px;">
+        <div class="watermark" style="top: 10%; left: 50%; transform: translate(-50%, -50%); opacity: 0.3;">PROJECTS
+        </div>
+
+        <h2 class="reveal" style="text-align: center; margin-bottom: 20px; font-size: clamp(2.5rem, 5vw, 4rem);">
+            Featured Work</h2>
+
+        <style>
+            .projects-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+                width: 100%;
+                margin-top: 40px;
+            }
+
+            @media (max-width: 768px) {
+                .projects-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .project-card {
+                    aspect-ratio: 2/1 !important;
+                }
+            }
+
+            .project-card {
+                position: relative;
+                border-radius: 12px;
+                overflow: hidden;
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid var(--glass-border);
+                aspect-ratio: 16/9;
+                cursor: pointer;
+            }
+
+            .project-card img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            }
+
+            .project-overlay {
+                position: absolute;
+                inset: 0;
+                background: rgba(10, 10, 10, 0.8);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                transition: opacity 0.4s ease;
+                backdrop-filter: blur(4px);
+            }
+
+            .project-card:hover img {
+                transform: scale(1.08);
+            }
+
+            .project-card:hover .project-overlay {
+                opacity: 1;
+            }
+
+            .project-title {
+                color: var(--cream);
+                font-size: 1.5rem;
+                margin-bottom: 16px;
+                transform: translateY(20px);
+                transition: transform 0.4s ease;
+                font-family: 'Playfair Display', serif;
+            }
+
+            .visit-project-btn {
+                padding: 10px 28px;
+                background: var(--gold);
+                color: #000;
+                border-radius: 30px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 0.9rem;
+                transform: translateY(20px);
+                transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                box-shadow: 0 4px 15px rgba(200, 169, 107, 0.3);
+            }
+
+            .project-card:hover .project-title,
+            .project-card:hover .visit-project-btn {
+                transform: translateY(0);
+            }
+
+            .visit-project-btn:hover {
+                transform: scale(1.05) !important;
+                background: #e6c888;
+            }
+
+            .explore-more-container {
+                display: flex;
+                justify-content: center;
+                margin-top: 60px;
+            }
+
+            .explore-more-btn {
+                padding: 14px 40px;
+                background: transparent;
+                border: 1px solid var(--gold);
+                color: var(--gold);
+                border-radius: 30px;
+                cursor: pointer;
+                font-size: 0.9rem;
+                letter-spacing: 0.15em;
+                text-transform: uppercase;
+                transition: all 0.3s ease;
+            }
+
+            .explore-more-btn:hover {
+                background: var(--gold);
+                color: #000;
+            }
+        </style>
+
+        <div class="projects-grid reveal">
+            <!-- Project 1 -->
+            <div class="project-card">
+                <img src="Screenshot 2026-05-18 030331.png" alt="Aamdar Misal">
+                <div class="project-overlay">
+                    <h3 class="project-title">Aamdar Misal</h3>
+                    <a href="https://aamdar-misal.vercel.app/" class="visit-project-btn" target="_blank">Visit
+                        Project</a>
+                </div>
+            </div>
+            <!-- Project 2 -->
+            <div class="project-card">
+                <img src="project_placeholder.png" alt="Project 2">
+                <div class="project-overlay">
+                    <h3 class="project-title">Project Two</h3>
+                    <a href="#" class="visit-project-btn" target="_blank">Visit Project</a>
+                </div>
+            </div>
+            <!-- Project 3 -->
+            <div class="project-card">
+                <img src="project_placeholder.png" alt="Project 3">
+                <div class="project-overlay">
+                    <h3 class="project-title">Project Three</h3>
+                    <a href="#" class="visit-project-btn" target="_blank">Visit Project</a>
+                </div>
+            </div>
+            <!-- Project 4 -->
+            <div class="project-card">
+                <img src="project_placeholder.png" alt="Project 4">
+                <div class="project-overlay">
+                    <h3 class="project-title">Project Four</h3>
+                    <a href="#" class="visit-project-btn" target="_blank">Visit Project</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="explore-more-container reveal">
+            <button class="explore-more-btn" onclick="openProjectsModal()">Explore More Projects</button>
+        </div>
+    </section>
+
+    <div class="divider" style="margin: 0;"></div>
+
+    <!-- Skills Section -->
+    <section class="resume" id="skills" style="padding-top: 20px; padding-bottom: 20px;">
+        <div class="watermark" style="top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.2;">SKILLS</div>
+
+        <div class="resume-grid" style="grid-template-columns: 1fr 1fr; gap: 60px;">
+            <!-- Left Column: Software & Coding -->
+            <div class="resume-column reveal">
+                <h2>Technical Skills</h2>
+
+                <div class="skill-category">
+                    <h3>Software Skills</h3>
+                    <div class="software-icons" style="gap: 20px; flex-wrap: wrap;">
+                        <div class="software-icon" style="font-size: 2rem; width: 64px; height: 64px;"><i
+                                class="devicon-vscode-plain colored"></i></div>
+                        <div class="software-icon" style="font-size: 2rem; width: 64px; height: 64px;"><i
+                                class="devicon-figma-plain colored"></i></div>
+                        <div class="software-icon" style="font-size: 2rem; width: 64px; height: 64px;"><i
+                                class="devicon-illustrator-plain colored"></i></div>
+                        <div class="software-icon" style="font-size: 2.2rem; width: 64px; height: 64px;"
+                            title="Antigravity">🌌</div>
+                        <div class="software-icon" style="font-size: 2rem; width: 64px; height: 64px;"><i
+                                class="devicon-canva-original colored"></i></div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Coding Skills & Languages</h3>
+                    <div class="skill-grid" style="margin-top: 16px;">
+                        <span class="skill-pill"><i class="devicon-html5-plain colored"
+                                style="font-size: 1.8em; margin-right: 6px;"></i> HTML5</span>
+                        <span class="skill-pill"><i class="devicon-css3-plain colored"
+                                style="font-size: 1.8em; margin-right: 6px;"></i> CSS3</span>
+                        <span class="skill-pill"><i class="devicon-javascript-plain colored"
+                                style="font-size: 1.8em; margin-right: 6px;"></i> JavaScript</span>
+                        <span class="skill-pill"><i class="devicon-react-original colored"
+                                style="font-size: 1.8em; margin-right: 6px;"></i> React.js</span>
+                        <span class="skill-pill"><i class="devicon-python-plain colored"
+                                style="font-size: 1.8em; margin-right: 6px;"></i> Python</span>
+                        <span class="skill-pill"><i class="devicon-cplusplus-plain colored"
+                                style="font-size: 1.8em; margin-right: 6px;"></i> C++</span>
+                        <span class="skill-pill"><i class="devicon-java-plain colored"
+                                style="font-size: 1.8em; margin-right: 6px;"></i> Java</span>
+                        <span class="skill-pill"><i class="devicon-nodejs-plain colored"
+                                style="font-size: 1.8em; margin-right: 6px;"></i> Node.js</span>
+                        <span class="skill-pill"><i class="devicon-tailwindcss-plain colored"
+                                style="font-size: 1.8em; margin-right: 6px;"></i> Tailwind CSS</span>
+                        <span class="skill-pill"><span style="font-size: 1.5em; margin-right: 6px;">🚀</span>
+                            GSAP</span>
+                        <span class="skill-pill"><span style="font-size: 1.5em; margin-right: 6px;">🧩</span>
+                            OOPs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Languages -->
+            <div class="resume-column reveal">
+                <h2>Languages</h2>
+                <style>
+                    .language-item {
+                        position: relative;
+                        overflow: hidden;
+                        cursor: pointer;
+                        transition: all 0.4s ease;
+                        height: 100px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        border: 1px solid var(--glass-border);
+                        border-radius: 12px;
+                    }
+
+                    .language-bg {
+                        position: absolute;
+                        inset: 0;
+                        opacity: 0;
+                        transition: opacity 0.4s ease;
+                        z-index: 1;
+                    }
+
+                    .bg-english {
+                        background: linear-gradient(135deg, #012169 0%, #012169 40%, #C8102E 40%, #C8102E 60%, #012169 60%, #012169 100%);
+                    }
+
+                    .bg-hindi {
+                        background: linear-gradient(to bottom, #FF9933 0%, #FF9933 33.33%, #FFFFFF 33.33%, #FFFFFF 66.66%, #138808 66.66%, #138808 100%);
+                    }
+
+                    .bg-marathi {
+                        background: linear-gradient(45deg, #FF671F, #E04D01);
+                    }
+
+                    .language-content {
+                        position: relative;
+                        z-index: 2;
+                        transition: all 0.3s ease;
+                        display: flex;
+                        align-items: center;
+                        gap: 16px;
+                        padding: 0 20px;
+                    }
+
+                    .language-logo {
+                        font-size: 2rem;
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    .language-item:hover .language-bg {
+                        opacity: 1;
+                    }
+
+                    .language-item:hover .language-content {
+                        transform: scale(1.05);
+                        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+                    }
+
+                    .language-item:hover .language-name,
+                    .language-item:hover .language-level {
+                        color: #FFF !important;
+                    }
+
+                    .hindi-item:hover .language-name,
+                    .hindi-item:hover .language-level {
+                        color: #012169 !important;
+                        /* Navy Blue */
+                    }
+                </style>
+                <div class="language-grid"
+                    style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-top: 30px;">
+                    <div class="language-item">
+                        <div class="language-bg bg-english"></div>
+                        <div class="language-content">
+                            <div class="language-logo">🇬🇧</div>
+                            <div>
+                                <div class="language-name" style="transition: color 0.3s;">English</div>
+                                <div class="language-level" style="transition: color 0.3s;">Fluent</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="language-item hindi-item">
+                        <div class="language-bg bg-hindi"></div>
+                        <div class="language-content">
+                            <div class="language-logo">🇮🇳</div>
+                            <div>
+                                <div class="language-name" style="transition: color 0.3s; color: var(--cream);">Hindi
+                                </div>
+                                <div class="language-level" style="transition: color 0.3s; color: var(--muted);">Native
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="language-item">
+                        <div class="language-bg bg-marathi"></div>
+                        <div class="language-content">
+                            <div class="language-logo">🚩</div>
+                            <div>
+                                <div class="language-name" style="transition: color 0.3s;">Marathi</div>
+                                <div class="language-level" style="transition: color 0.3s;">Native</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 style="margin-top: 60px;">Core Focus</h2>
+                <div class="skill-category">
+                    <div class="skill-grid" style="margin-top: 24px;">
+                        <span class="skill-pill gold"><span style="font-size: 1.5em; margin-right: 6px;">🎨</span> UI/UX
+                            Design</span>
+                        <span class="skill-pill gold"><span style="font-size: 1.5em; margin-right: 6px;">🎬</span> Web
+                            Animation</span>
+                        <span class="skill-pill gold"><span style="font-size: 1.5em; margin-right: 6px;">📱</span>
+                            Responsive Design</span>
+                        <span class="skill-pill gold"><span style="font-size: 1.5em; margin-right: 6px;">🏗️</span>
+                            Frontend Architecture</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Section -->
+    <section class="bottom-section" id="work" style="padding-top: 0px;">
+        <div class="bottom-column reveal">
+            <h2>Activities</h2>
+
+            <div class="activity-item">
+                <div class="activity-year">2026</div>
+                <div class="activity-title">Frontend Mastery</div>
+                <div class="activity-desc">Building advanced WebGL & GSAP animations</div>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-year">2026</div>
+                <div class="activity-title">UI/UX Exploration</div>
+                <div class="activity-desc">Designing minimalist glassmorphism interfaces</div>
+            </div>
+        </div>
+
+        <div class="bottom-column reveal">
+            <h2>Hobbies & Interests</h2>
+
+            <div class="hobbies-grid">
+                <div class="hobby-item">
+                    <svg class="hobby-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                    <span class="hobby-label">Web<br>Design</span>
+                </div>
+                <div class="hobby-item">
+                    <svg class="hobby-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                        <path d="M2 12h20" />
+                    </svg>
+                    <span class="hobby-label">Digital<br>Art</span>
+                </div>
+                <div class="hobby-item">
+                    <svg class="hobby-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+                    </svg>
+                    <span class="hobby-label">Tech<br>Enthusiast</span>
+                </div>
+                <div class="hobby-item">
+                    <svg class="hobby-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                    </svg>
+                    <span class="hobby-label" style="font-size: 0.8rem;">Eager to learn<br>something new</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Modal -->
+    <div class="connect-modal-overlay" id="projectsModal">
+        <div class="connect-modal" style="max-width: 500px;">
+            <button class="connect-modal-close" onclick="closeProjectsModal()">×</button>
+            <h3 class="about-contact-title" style="text-align: center; margin-bottom: 24px;">More Projects Coming Soon!
+            </h3>
+            <p style="text-align: center; color: var(--cream-dim); line-height: 1.6; margin-bottom: 32px;">
+                I'm currently building some amazing new cinematic web experiences. Check back later to see my latest
+                work!
+            </p>
+            <div class="connect-buttons" style="display: flex; justify-content: center;">
+                <button class="connect-btn" onclick="closeProjectsModal()"
+                    style="width: auto; padding: 12px 32px; cursor: pointer; text-align: center; background: rgba(200, 169, 107, 0.1); border: 1px solid var(--gold); color: var(--gold);">Got
+                    it!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connect Modal -->
+    <div class="connect-modal-overlay" id="connectModal">
+        <div class="connect-modal">
+            <button class="connect-modal-close" onclick="closeModal()">×</button>
+            <h3 class="about-contact-title" style="text-align: center; margin-bottom: 24px;">Let's Connect</h3>
+            <div class="connect-buttons" style="display: flex; flex-direction: column; gap: 12px;">
+                <a href="https://wa.me/918668649942?text=Hi%20Tanmay,%20I%20would%20love%20to%20connect%20with%20you!"
+                    target="_blank" class="connect-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                        </path>
+                    </svg>
+                    WhatsApp
+                </a>
+                <a href="https://ig.me/m/xrn._tanmyy" target="_blank" class="connect-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                    Instagram
+                </a>
+                <a href="tel:+918668649942" class="connect-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                        </path>
+                    </svg>
+                    Call Me
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="padding: 60px 48px; text-align: center; border-top: 1px solid var(--glass-border);">
+        <p style="font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em;">
+            © 2026 Tanmay Ghadi. Crafted with elegance.
+        </p>
+    </footer>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.getElementById('cursor');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.15;
+            cursorY += (mouseY - cursorY) * 0.15;
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Hover effect for cursor
+        const clickables = document.querySelectorAll('a, button, .skill-pill, .software-icon, .hobby-item, .language-item, .tag, .scroll-indicator-circle');
+        clickables.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            lastScroll = currentScroll;
+        });
+
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Parallax Effect for Hero
+        const heroPortrait = document.querySelector('.hero-portrait');
+        const heroTexts = document.querySelectorAll('.hero-bg-text');
+
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroHeight = document.querySelector('.hero').offsetHeight;
+
+            if (scrolled < heroHeight) {
+                if (heroPortrait) {
+                    heroPortrait.style.transform = `translateY(calc(-50% + ${scrolled * 0.3}px))`;
+                }
+                heroTexts.forEach((text, i) => {
+                    const speed = 0.1 + (i * 0.05);
+                    text.style.transform = `translateY(${scrolled * speed}px)`;
+                });
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Stagger animation for timeline items
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        const timelineObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateX(0)';
+                    }, index * 100);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        timelineItems.forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateX(-20px)';
+            item.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+            timelineObserver.observe(item);
+        });
+
+        // Magnetic effect for pills
+        const pills = document.querySelectorAll('.about-pill');
+        pills.forEach(pill => {
+            pill.addEventListener('mousemove', (e) => {
+                const rect = pill.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                pill.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px) scale(1.05)`;
+            });
+            pill.addEventListener('mouseleave', () => {
+                pill.style.transform = 'translate(0, 0) scale(1)';
+            });
+        });
+
+        // Modal logic
+        function openModal(e) {
+            e.preventDefault();
+            document.getElementById('connectModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('connectModal').classList.remove('active');
+        }
+
+        document.getElementById('connectModal').addEventListener('click', function (e) {
+            if (e.target === this) closeModal();
+        });
+
+        // Projects Modal logic
+        function openProjectsModal() {
+            document.getElementById('projectsModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProjectsModal() {
+            document.getElementById('projectsModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('projectsModal').addEventListener('click', function (e) {
+            if (e.target === this) closeProjectsModal();
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Trigger initial animations
+            setTimeout(() => {
+                document.querySelectorAll('.hero-bg-text').forEach((el, i) => {
+                    el.style.animationDelay = `${0.2 + i * 0.2}s`;
+                });
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>
